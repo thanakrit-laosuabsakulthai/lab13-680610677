@@ -10,7 +10,13 @@ export default function Modal({ onAdd }: props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {};
+
+  const handleSubmit = () => {
+    if (!title.trim()) return; // กันเพิ่มงานที่ไม่มีชื่อ
+    onAdd({ id: uuidv4(), title, description, isDone: false });
+    setTitle(""); // เคลียร์ฟอร์ม = set state กลับเป็นค่าว่าง
+    setDescription("");
+  };
 
   const titleOnchange = (event: any) => {
     setTitle(event.target.value);
@@ -60,7 +66,7 @@ export default function Modal({ onAdd }: props) {
             <button
               type="button"
               className="btn btn-success"
-              onClick={() => {}}
+              onClick={handleSubmit}
             >
               Save
             </button>
